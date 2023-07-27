@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
 
     const { username, email, password } = req.body;
 
-    //store the user in the database
+    //store the user info in the database
     try {
         const result = await asyncMySQL(addUser(username, email, password));
         res.send({ status: 1, userId: result.insertId });
