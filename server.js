@@ -12,7 +12,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //routes
-app.use("/user", require("./routes/user")); 
+app.use("/account", require("./routes/account")); 
 
 //boilerplate to start the server
 const port = process.env.PORT || 6001;
