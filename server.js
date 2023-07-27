@@ -2,7 +2,17 @@
 const express = require("express");
 const app = express(); //create an instance of express
 
- 
+//middelware function
+app.use((req, res, next) => {
+    console.log("new request");
+    next();
+});
+
+//convert the body to json
+app.use(express.json());
+
+//routes
+app.use("/user", require("./routes/user")); 
 
 //boilerplate to start the server
 const port = process.env.PORT || 6001;
