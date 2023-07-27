@@ -1,4 +1,4 @@
-const genRandomString = (len = 16) => {
+const genRandomString = (len = 128) => {
 
     let res = "";
     const charSelection = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-";

@@ -14,7 +14,16 @@ module.exports = {
                     AND password LIKE "${sha256Password}"`
     },
 
+    addToken: (userId, token) => {
+        return `INSERT INTO tokens
+                (user_id, token)
+                VALUES ("${userId}", "${token}")`
+    },
 
+    getIdByToken: (token) => {
+        return `SELECT user_id FROM tokens
+                WHERE token LIKE "${token}"`
+    }
 
 
 
