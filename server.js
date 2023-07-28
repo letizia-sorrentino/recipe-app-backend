@@ -2,7 +2,7 @@
 const express = require("express");
 const asyncMySQL = require("./mysql/connection");
 const app = express(); //create an instance of express
-//const {checkToken} = require("./middleware")
+const checkToken = require("./middleware/auth")
 
 //middelware function
 app.use((req, res, next) => {
@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //routes
-//app.use("favouriterecipes", checkToken, require("./routes/"))
+app.use("/favourite-recipes", checkToken, require("./routes/favouriteRecipes"));
 app.use("/account", require("./routes/account"));
 
 //boilerplate to start the server

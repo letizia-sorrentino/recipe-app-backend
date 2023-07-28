@@ -23,8 +23,17 @@ module.exports = {
     getIdByToken: (token) => {
         return `SELECT user_id FROM tokens
                 WHERE token LIKE "${token}"`
-    }
+    },
 
+    addRecipe: (title, image, imageType, userId) => {
+        return `INSERT INTO favouriteRecipes 
+                    (title, image, imageType, user_id)
+                         VALUES
+                            ("${title}", 
+                            "${image}", 
+                            "${imageType}", 
+                            "${userId}")`
+    },
 
 
 };
