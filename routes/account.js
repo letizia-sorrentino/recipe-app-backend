@@ -10,7 +10,7 @@ router.post("/login"), async (req, res) => {
     const { username, email, password } = req.body;
 
     //hash the password
-    const sha256Password = sha256(password);
+    const sha256Password = sha256(password + "thisappisgreat");
 
     //compared the hashed version to the store one
     try {
@@ -27,8 +27,6 @@ router.post("/login"), async (req, res) => {
         console.log(error);
     };
 
-    //tell the user all is ok
-
 };
 
 //Create Account
@@ -38,7 +36,7 @@ router.post("/register", async (req, res) => {
     //store the user info in the database
     try {
         //hash the password
-        const sha256Password = sha256(password);
+        const sha256Password = sha256(password + "thisappisgreat");
         const results = await asyncMySQL(addUser(username, email, sha256Password));
         console.log(results);
         res.send({ status: 1, userId: result.insertId });
