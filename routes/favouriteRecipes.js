@@ -31,7 +31,7 @@ router.post("/favourite-recipes", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, rest) => {
+router.delete("/:id", async (req, res) => {
     const id = Number(req.params.id);
 
     //check that id is a number
@@ -40,18 +40,14 @@ router.delete("/:id", async (req, rest) => {
         return;
     }
 
-    const results = await asyncMySQL(deleteRecipe(id, req.validatedUserId))
-
-    if (results.affectedRows > 0) {
+    const result = await asyncMySQL(deleteRecipe(id, req.validatedUserId))
+    //console.log(result);
+    if (result.affectedRows > 0) {
         res.send({ status: 1 });
 
     } else {
         res.send({ status: 0, reason: "delete failed" });
     }
-
-}
-
-
-)
+});
 
 module.exports = router;

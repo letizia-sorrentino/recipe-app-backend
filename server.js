@@ -5,7 +5,6 @@ const cors = require("cors");
 const checkToken = require("./middleware/auth");
 const limiter = require("./middleware/limiter");
 
-
 app.use(limiter);
 
 app.use(cors());
