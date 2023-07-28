@@ -1,8 +1,11 @@
 //boilerplate to bring express in
 const express = require("express");
-const asyncMySQL = require("./mysql/connection");
 const app = express(); //create an instance of express
+const cors = require("cors");
 const checkToken = require("./middleware/auth")
+
+
+app.use(cors());
 
 //middelware function
 app.use((req, res, next) => {
