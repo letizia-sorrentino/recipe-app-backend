@@ -2,8 +2,11 @@
 const express = require("express");
 const app = express(); //create an instance of express
 const cors = require("cors");
-const checkToken = require("./middleware/auth")
+const checkToken = require("./middleware/auth");
+const limiter = require("./middleware/limiter");
 
+
+app.use(limiter);
 
 app.use(cors());
 
