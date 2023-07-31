@@ -7,7 +7,7 @@ router.post("/", async (req, res) => {
     //add recipe to favourites
     const { title, image, imageType } = req.body;
 
-    //check the contents
+    //check the contents of the recipe
     if (
         !title ||
         !image ||
@@ -21,13 +21,14 @@ router.post("/", async (req, res) => {
     }
 
     try {
+        //add recipe to the database
         await asyncMySQL(
             addRecipe(title, image, imageType, req.validatedUserId)
         );
         res.send({ status: 1 });
     } catch (error) {
         console.log(error);
-        res.send({ status: 0, reason: "Duplicate entry" });
+        res.send({ status: 0, reason: "error while processing the request" });
     }
 });
 
