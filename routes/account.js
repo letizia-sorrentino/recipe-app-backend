@@ -6,9 +6,9 @@ const { genRandomString } = require("../utils/math");
 const sha256 = require("sha256");
 
 //Login
-router.post("/login"), async (req, res) => {
+router.post("/login", async (req, res) => {
     const { username, email, password } = req.body;
-
+    console.log("login")
     //hash the password
     const sha256Password = sha256(password + "thisappisgreat");
 
@@ -27,11 +27,12 @@ router.post("/login"), async (req, res) => {
         console.log(error);
     };
 
-};
+});
 
 //Create Account
 router.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
+    console.log("register");
 
     //store the user info in the database
     try {
@@ -39,11 +40,14 @@ router.post("/register", async (req, res) => {
         const sha256Password = sha256(password + "thisappisgreat");
         const results = await asyncMySQL(addUser(username, email, sha256Password));
         console.log(results);
-        res.send({ status: 1, userId: result.insertId });
+        res.send({ status: 1, userId: results.insertId });
     } catch (error) {
         res.send({ status: 0 });
     }
 
 })
+
+
+
 
 module.exports = router;

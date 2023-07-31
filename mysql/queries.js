@@ -7,7 +7,6 @@ module.exports = {
     },
 
     checkUserCreds: (username, email, sha256Password) => {
-
         return `SELECT id FROM users
                  WHERE username LIKE "${username}" 
                     AND email LIKE "${email}" 
@@ -25,6 +24,7 @@ module.exports = {
                 WHERE token LIKE "${token}"`
     },
 
+
     addRecipe: (title, image, imageType, userId) => {
         return `INSERT INTO favouriteRecipes 
                     (title, image, imageType, user_id)
@@ -37,7 +37,7 @@ module.exports = {
 
     deleteRecipe: (id, userId) => {
         return `DELETE FROM favouriteRecipes
-        WHERE title LIKE ${id} AND user_id LIKE ${userId};
+        WHERE id LIKE ${id} AND user_id LIKE ${userId};
         `
     }
 
