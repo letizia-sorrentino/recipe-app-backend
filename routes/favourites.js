@@ -3,9 +3,9 @@ const router = express.Router();
 const asyncMySQL = require("../mysql/connection");
 const { addRecipe, deleteRecipe } = require("../mysql/queries");
 
-router.post("/favourite-recipes", async (req, res) => {
+router.post("/", async (req, res) => {
     //add recipe to favourites
-    const { title, image, imageType, userId } = req.body;
+    const { title, image, imageType } = req.body;
 
     //check the contents
     if (

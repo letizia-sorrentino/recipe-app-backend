@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //routes
-app.use("/favourite-recipes", checkToken, require("./routes/favouriteRecipes"));
+app.use("/favourites", checkToken, require("./routes/favourites"));
 app.use("/account", require("./routes/account"));
 
 //boilerplate to start the server
