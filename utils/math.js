@@ -5,7 +5,7 @@ const genRandomString = (len = 128) => {
     const charSelectionLen = charSelection.length;
 
     for (let i = 0; i < len; i++) {
-        res += charSelection.charAt(Mathfloor(Math.random() * charSelectionLen))
+        res += charSelection.charAt(Math.floor(Math.random() * charSelectionLen))
     }
 
     return res;

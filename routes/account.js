@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const asyncMySQL = require("../mysql/connection");
-const { addUser, checkUserCreds } = require("../mysql/queries");
+const { addUser, checkUserCreds, addToken } = require("../mysql/queries");
 const { genRandomString } = require("../utils/math");
 const sha256 = require("sha256");
 
