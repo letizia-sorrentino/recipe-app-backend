@@ -18,7 +18,7 @@ router.post("/login", async (req, res) => {
         console.log(results);
         if (results.length > 0) {
             const token = genRandomString(128);
-            asyncMySQL(addToken(results[0].user_id, token));
+            asyncMySQL(addToken(results[0].id, token));
             res.send({ status: 1, token });
         } else {
             res.send({ status: 0, reason: "wrong credentials" })
