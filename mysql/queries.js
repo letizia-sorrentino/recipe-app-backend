@@ -16,7 +16,7 @@ module.exports = {
     addToken: (userId, token) => {
         return `INSERT INTO tokens
                 (user_id, token)
-                VALUES ("${userId}", "${token}");`;
+                VALUES (${userId}, "${token}");`;
     },
 
     getIdByToken: (token) => {
@@ -25,19 +25,23 @@ module.exports = {
     },
 
 
-    addRecipe: (title, image, imageType, userId) => {
+    addRecipe: (recipeId, userId) => {
         return `INSERT INTO favouriteRecipes 
-                    (title, image, imageType, user_id)
+                    (recipe_id, user_id)
                          VALUES
-                            ("${title}", 
-                            "${image}", 
-                            "${imageType}", 
-                            "${userId}");`;
+                            (${recipeId}, 
+                            ${userId});`;
     },
 
     deleteRecipe: (id, userId) => {
         return `DELETE FROM favouriteRecipes
         WHERE id LIKE ${id} AND user_id LIKE ${userId};
+        `;
+    },
+
+    getFavouriteRecipes: (userId) => {
+        return `SELECT  id, recipe_id AS recipeId FROM favouriteRecipes
+        WHERE user_id LIKE ${userId};
         `;
     }
 

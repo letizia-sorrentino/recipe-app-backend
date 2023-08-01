@@ -1,29 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const asyncMySQL = require("../mysql/connection");
-const { addRecipe, deleteRecipe } = require("../mysql/queries");
+const { addRecipe, deleteRecipe, getFavouriteRecipes } = require("../mysql/queries");
 
 router.post("/", async (req, res) => {
     //add recipe to favourites
-    const { title, image, imageType } = req.body;
+    const recipeId = Number(req.body.recipeId);
 
-    //check the contents of the recipe
-    if (
-        !title ||
-        !image ||
-        !imageType ||
-        typeof title !== "string" ||
-        typeof image !== "string" ||
-        typeof imageType !== "string"
-    ) {
-        res.send({ status: 0, reason: "Incomplete or invalid request" });
+    //check that id is a number
+    if (Number.isNaN(recipeId)) {
+        res.send({ status: 0, reason: "invalid id" });
         return;
     }
 
     try {
         //add recipe to the database
         await asyncMySQL(
-            addRecipe(title, image, imageType, req.validatedUserId)
+            addRecipe(recipeId, req.validatedUserId)
         );
         res.send({ status: 1 });
     } catch (error) {
@@ -50,5 +43,14 @@ router.delete("/:id", async (req, res) => {
         res.send({ status: 0, reason: "delete failed" });
     }
 });
+
+router.get("/", async (req, res) => {
+
+    const results = await asyncMySQL(getFavouriteRecipes(req.validatedUserId));
+
+    res.send({ status: 1, results });
+
+});
+
 
 module.exports = router;
