@@ -43,7 +43,24 @@ module.exports = {
         return `SELECT  id, recipe_id AS recipeId FROM favouriteRecipes
         WHERE user_id LIKE ${userId};
         `;
-    }
+    },
 
+    deleteAllRecipes: (userId) => {
+        return `DELETE FROM favouriteRecipes
+        WHERE user_id LIKE ${userId};
+        `;
+    },
+
+    deleteUser: (userId) => {
+        return `DELETE FROM users
+        WHERE id LIKE ${userId};
+        `;
+    },
+
+    deleteUserTokens: (userId) => {
+        return `DELETE FROM tokens
+        WHERE user_id LIKE ${userId};
+        `;
+    }
 
 };

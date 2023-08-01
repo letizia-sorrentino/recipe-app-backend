@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const asyncMySQL = require("../mysql/connection");
-const { addUser, checkUserCreds, addToken } = require("../mysql/queries");
+const { addUser, checkUserCreds, addToken, deleteAllRecipes, deleteUser, deleteUserTokens } = require("../mysql/queries");
+const checkToken = require("../middleware/auth");
 const { genRandomString } = require("../utils/math");
 const sha256 = require("sha256");
 
@@ -45,7 +46,28 @@ router.post("/register", async (req, res) => {
         res.send({ status: 0 });
     }
 
-})
+});
+
+//Delete Account
+router.delete("/", checkToken, async (req, res) => {
+
+    console.log(req.validatedUserId);
+    try {
+
+        await asyncMySQL(deleteAllRecipes(req.validatedUserId));
+        await asyncMySQL(deleteUser(req.validatedUserId));
+        await asyncMySQL(deleteUserTokens(req.validatedUserId));
+
+        res.send({ status: 1, reason: "account deleted" });
+
+
+    } catch (error) {
+
+        console.log(error);
+    }
+
+
+});
 
 
 
