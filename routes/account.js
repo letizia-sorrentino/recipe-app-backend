@@ -8,14 +8,14 @@ const sha256 = require("sha256");
 
 //Login
 router.post("/login", async (req, res) => {
-    const { username, email, password } = req.body;
-    console.log("login")
+    const { email, password } = req.body;
+    console.log(req.body);
     //hash the password
     const sha256Password = sha256(password + "thisappisgreat");
 
-    //compared the hashed version to the store one
+    //compare the hashed version to the store one
     try {
-        const results = await asyncMySQL(checkUserCreds(username, email, sha256Password));
+        const results = await asyncMySQL(checkUserCreds(email, sha256Password));
         console.log(results);
         if (results.length > 0) {
             const token = genRandomString(128);
@@ -30,16 +30,28 @@ router.post("/login", async (req, res) => {
 
 });
 
+//Logout
+router.post("/logout", checkToken, async (req, res) => {
+    console.log("logout");
+    try {
+        const result = await asyncMySQL(deleteUserTokens(req.validatedUserId));
+        res.send({ status: 1, reason: "logout successful" });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+
 //Create Account
 router.post("/register", async (req, res) => {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
     console.log("register");
 
     //store the user info in the database
     try {
         //hash the password
         const sha256Password = sha256(password + "thisappisgreat");
-        const results = await asyncMySQL(addUser(username, email, sha256Password));
+        const results = await asyncMySQL(addUser(email, sha256Password));
         console.log(results);
         res.send({ status: 1, userId: results.insertId });
     } catch (error) {

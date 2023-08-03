@@ -1,16 +1,15 @@
 module.exports = {
-    addUser: (username, email, password) => {
+    addUser: (email, password) => {
         return `INSERT INTO users 
-                    (username, email, password)
+                    (email, password)
                          VALUES
-                            ("${username}", "${email}", "${password}");`;
+                            ("${email}", "${password}");`;
     },
 
-    checkUserCreds: (username, email, sha256Password) => {
+    checkUserCreds: (email, sha256Password) => {
         return `SELECT id FROM users
-                 WHERE username LIKE "${username}" 
-                    AND email LIKE "${email}" 
-                    AND password LIKE "${sha256Password}";`;
+                 WHERE email LIKE "${email}" 
+                AND password LIKE "${sha256Password}";`;
     },
 
     addToken: (userId, token) => {
