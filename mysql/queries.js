@@ -18,6 +18,11 @@ module.exports = {
                 VALUES (${userId}, "${token}");`;
     },
 
+    deleteToken: (token) => {
+        return `DELETE FROM tokens
+                WHERE token LIKE "${token}";`;
+    },
+
     getIdByToken: (token) => {
         return `SELECT user_id FROM tokens
                 WHERE token LIKE "${token}";`;
@@ -34,7 +39,7 @@ module.exports = {
 
     deleteRecipe: (id, userId) => {
         return `DELETE FROM favouriteRecipes
-        WHERE id LIKE ${id} AND user_id LIKE ${userId};
+        WHERE recipe_id LIKE ${id} AND user_id LIKE ${userId};
         `;
     },
 

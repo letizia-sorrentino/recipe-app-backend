@@ -35,7 +35,7 @@ router.delete("/:id", async (req, res) => {
     }
 
     const result = await asyncMySQL(deleteRecipe(id, req.validatedUserId))
-    console.log(result);
+    console.log(result, deleteRecipe(id, req.validatedUserId));
     if (result.affectedRows > 0) {
         res.send({ status: 1 });
 

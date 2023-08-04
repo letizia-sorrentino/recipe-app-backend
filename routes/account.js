@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const asyncMySQL = require("../mysql/connection");
-const { addUser, checkUserCreds, addToken, deleteAllRecipes, deleteUser, deleteUserTokens } = require("../mysql/queries");
+const { addUser, checkUserCreds, addToken, deleteAllRecipes, deleteUser, deleteToken, deleteUserTokens } = require("../mysql/queries");
 const checkToken = require("../middleware/auth");
 const { genRandomString } = require("../utils/math");
 const sha256 = require("sha256");
@@ -31,10 +31,12 @@ router.post("/login", async (req, res) => {
 });
 
 //Logout
-router.post("/logout", checkToken, async (req, res) => {
-    console.log("logout");
+router.delete("/logout", checkToken, async (req, res) => {
+    console.log("token", req.headers.token);
     try {
-        const result = await asyncMySQL(deleteUserTokens(req.validatedUserId));
+        const result = await asyncMySQL(deleteToken(req.headers.token));
+        console.log(result);
+        console.log(deleteToken(req.headers.token));
         res.send({ status: 1, reason: "logout successful" });
     } catch (error) {
         console.log(error);
