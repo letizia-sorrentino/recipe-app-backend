@@ -2,6 +2,8 @@
 
 #files
 Archive.zip
+connection.js
+
 
 # dependencies
 /node_modules
