@@ -1,8 +1,8 @@
 ## Love Food App Backend
 
-Created using Node.js and Express.js, this project serves as the backend of the (Love Food recipe app) [https://lovefoodapp.co.uk/].
+Created using Node.js and Express.js, this project serves as the backend of the [Love Food recipe app](https://lovefoodapp.co.uk/).
 
-Love Food enables users to store recipes sourced from the Spoonacular API. More information is available in the (frontend project repository) [https://github.com/letizia-sorrentino/recipe-app-project].
+Love Food enables users to store recipes sourced from the Spoonacular API. More information is available in the [frontend project repository](https://github.com/letizia-sorrentino/recipe-app-project).
 
 ##Overview
 The backend incorporates two key routes:
