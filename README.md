@@ -5,6 +5,7 @@ Created using Node.js and Express.js, this project serves as the backend of the 
 Love Food enables users to store recipes sourced from the Spoonacular API. More information about the front end is available in the [project repository](https://github.com/letizia-sorrentino/recipe-app-project).
 
 ## Overview
+
 The backend incorporates two key routes:
 
 1. **Account**: Responsible for tasks such as account creation, deletion, login, and logout.
