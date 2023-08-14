@@ -8,7 +8,12 @@ const limiter = require("./middleware/limiter");
 app.use(limiter);
 
 //allow requests from a specific origin
-app.use(cors({ origin: 'https://lovefoodapp.co.uk' }));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", 'https://lovefoodapp.co.uk')
+    next();
+});
+
+app.use(cors());
 
 //middelware function
 app.use((req, res, next) => {
