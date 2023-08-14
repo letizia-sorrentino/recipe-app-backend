@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
+    console.log(req.params.id, req.validatedUserId);
     const id = Number(req.params.id);
 
     //check that id is a number

@@ -39,7 +39,7 @@ module.exports = {
 
     deleteRecipe: (id, userId) => {
         return `DELETE FROM favouriteRecipes
-        WHERE recipe_id LIKE ${id} AND user_id LIKE ${userId};
+        WHERE recipe_id = ${id} AND user_id = ${userId};
         `;
     },
 
