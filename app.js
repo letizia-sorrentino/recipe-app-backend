@@ -3,23 +3,16 @@ const express = require("express");
 const app = express(); //create an instance of express
 const cors = require("cors");
 const checkToken = require("./middleware/auth");
+const chalk = require("chalk");
 //const limiter = require("./middleware/limiter");
 
 //app.use(limiter);
-
-// //Enabling CORS
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", '*');
-//     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-//     next();
-// });
 
 app.use(cors());
 
 //middelware function
 app.use((req, res, next) => {
-    console.log("new request");
+    console.log(chalk.yellow("new request"));
     next();
 });
 

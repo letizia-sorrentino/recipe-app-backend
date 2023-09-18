@@ -7,7 +7,7 @@ const checkToken = async (req, res, next) => {
 
   console.log(results, req.headers.token);
 
-  if (results.length > 0) {
+  if (results.length === 1) {
     //attach token id to the request
     req.validatedUserId = results[0].user_id;
 

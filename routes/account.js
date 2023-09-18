@@ -5,19 +5,46 @@ const { addUser, checkUserCreds, addToken, deleteAllRecipes, deleteUser, deleteT
 const checkToken = require("../middleware/auth");
 const { genRandomString } = require("../utils/math");
 const sha256 = require("sha256");
+const chalk = require("chalk");
 
 //Login
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
+    //console.log(chalk.blue(("login")));
+
     //hash the password
     const sha256Password = sha256(password + "thisappisgreat");
 
+    //to see what is going on 
+    console.log(chalk.red("BODY:" + JSON.stringify(req.body)));
+    console.log(chalk.blue("‹EMAIL:" + req.body.email));
+    console.log(chalk.green("PASSWORD:" + req.body.password));
+    console.log(chalk.white("QUERY:" + checkUserCreds(email, sha256Password)));
+
+    //defensive checks against SQL injections
+    if (email.includes("%")) {
+        res.send("hacker identified");
+        return;
+    };
+
+    if (email.toLowerCase().includes("not like")) {
+        res.send("hacker identified");
+        return;
+    };
+
+    if (email.length > 20) {
+        res.send("hacker identified");
+        return;
+    }
+
     //compare the hashed version to the store one
     try {
-        const results = await asyncMySQL(checkUserCreds(email, sha256Password));
-        console.log(results);
-        if (results.length > 0) {
+        const results = await asyncMySQL(checkUserCreds(), [email, sha256Password]); // prepared statement
+
+        //console.log(results);
+        console.log(chalk.grey("RESULTS:" + JSON.stringify(results)));
+
+        if (results.length === 1) {
             const token = genRandomString(128);
             asyncMySQL(addToken(results[0].id, token));
             res.send({ status: 1, token });
@@ -47,7 +74,7 @@ router.delete("/logout", checkToken, async (req, res) => {
 //Create Account
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
-    console.log("register");
+    console.log(chalk.blue("register"));
 
     //store the user info in the database
     try {

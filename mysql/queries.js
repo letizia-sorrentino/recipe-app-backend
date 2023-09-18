@@ -6,10 +6,10 @@ module.exports = {
                             ("${email}", "${password}");`;
     },
 
-    checkUserCreds: (email, sha256Password) => {
+    checkUserCreds: () => {
         return `SELECT id FROM users
-                 WHERE email LIKE "${email}" 
-                AND password LIKE "${sha256Password}";`;
+                 WHERE email = ?
+                AND password = ?;`;
     },
 
     addToken: (userId, token) => {
