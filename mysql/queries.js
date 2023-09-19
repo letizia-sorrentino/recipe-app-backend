@@ -1,9 +1,9 @@
 module.exports = {
-    addUser: (email, password) => {
+    addUser: () => {
         return `INSERT INTO users 
                     (email, password)
                          VALUES
-                            ("${email}", "${password}");`;
+                            (?, ?);`;
     },
 
     checkUserCreds: () => {
@@ -12,58 +12,57 @@ module.exports = {
                 AND password = ?;`;
     },
 
-    addToken: (userId, token) => {
+    addToken: () => {
         return `INSERT INTO tokens
                 (user_id, token)
-                VALUES (${userId}, "${token}");`;
+                VALUES (?, ?);`;
     },
 
-    deleteToken: (token) => {
+    deleteToken: () => {
         return `DELETE FROM tokens
-                WHERE token = "${token}";`;
+                WHERE token = ?;`;
     },
 
-    getIdByToken: (token) => {
+    getIdByToken: () => {
         return `SELECT user_id FROM tokens
-                WHERE token = "${token}";`;
+                WHERE token = ?;`;
     },
 
 
-    addRecipe: (recipeId, userId) => {
+    addRecipe: () => {
         return `INSERT INTO favouriteRecipes 
                     (recipe_id, user_id)
                          VALUES
-                            (${recipeId}, 
-                            ${userId});`;
+                            (?, ?);`;
     },
 
-    deleteRecipe: (id, userId) => {
+    deleteRecipe: () => {
         return `DELETE FROM favouriteRecipes
-        WHERE recipe_id = ${id} AND user_id = ${userId};
+        WHERE recipe_id = ? AND user_id = ?;
         `;
     },
 
-    getFavouriteRecipes: (userId) => {
+    getFavouriteRecipes: () => {
         return `SELECT  id, recipe_id AS recipeId FROM favouriteRecipes
-        WHERE user_id = ${userId};
+        WHERE user_id = ?;
         `;
     },
 
-    deleteAllRecipes: (userId) => {
+    deleteAllRecipes: () => {
         return `DELETE FROM favouriteRecipes
-        WHERE user_id = ${userId};
+        WHERE user_id = ?;
         `;
     },
 
-    deleteUser: (userId) => {
+    deleteUser: () => {
         return `DELETE FROM users
-        WHERE id = ${userId};
+        WHERE id = ?;
         `;
     },
 
-    deleteUserTokens: (userId) => {
+    deleteUserTokens: () => {
         return `DELETE FROM tokens
-        WHERE user_id = ${userId};
+        WHERE user_id = ?;
         `;
     }
 
