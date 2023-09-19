@@ -3,7 +3,7 @@ module.exports = {
         return `INSERT INTO users 
                     (email, password)
                          VALUES
-                            (?, ?);`;
+                            (?,?);`;
     },
 
     checkUserCreds: () => {
@@ -15,7 +15,7 @@ module.exports = {
     addToken: () => {
         return `INSERT INTO tokens
                 (user_id, token)
-                VALUES (?, ?);`;
+                VALUES (?,?);`;
     },
 
     deleteToken: () => {
@@ -33,7 +33,7 @@ module.exports = {
         return `INSERT INTO favouriteRecipes 
                     (recipe_id, user_id)
                          VALUES
-                            (?, ?);`;
+                            (?,?);`;
     },
 
     deleteRecipe: () => {

@@ -10,7 +10,7 @@ const chalk = require("chalk");
 //Login
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    //console.log(chalk.blue(("login")));
+    console.log(chalk.blue(("login")));
 
     //hash the password
     const sha256Password = sha256(password + "thisappisgreat");
@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
 
         if (results.length === 1) {
             const token = genRandomString(128);
-            asyncMySQL(addToken(results[0].id, token));
+            asyncMySQL(addToken(), [results[0].id, token]);
             res.send({ status: 1, token });
         } else {
             res.send({ status: 0, reason: "wrong credentials" })
