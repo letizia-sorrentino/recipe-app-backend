@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
 router.delete("/logout", checkToken, async (req, res) => {
     console.log("token", req.headers.token);
     try {
-        const result = await asyncMySQL(deleteToken(req.headers.token));
+        const result = await asyncMySQL(deleteToken(), [req.headers.token]);
         console.log(result);
         console.log(deleteToken(req.headers.token));
         res.send({ status: 1, reason: "logout successful" });
@@ -80,7 +80,7 @@ router.post("/register", async (req, res) => {
     try {
         //hash the password
         const sha256Password = sha256(password + "thisappisgreat");
-        const results = await asyncMySQL(addUser(email, sha256Password));
+        const results = await asyncMySQL(addUser(), [email, sha256Password]);
         console.log(results);
         res.send({ status: 1, userId: results.insertId });
     } catch (error) {
@@ -95,9 +95,9 @@ router.delete("/", checkToken, async (req, res) => {
     console.log(req.validatedUserId);
     try {
 
-        await asyncMySQL(deleteAllRecipes(req.validatedUserId));
-        await asyncMySQL(deleteUser(req.validatedUserId));
-        await asyncMySQL(deleteUserTokens(req.validatedUserId));
+        await asyncMySQL(deleteAllRecipes(), [req.validatedUserId]);
+        await asyncMySQL(deleteUser(), [req.validatedUserId]);
+        await asyncMySQL(deleteUserTokens(), [req.validatedUserId]);
 
         res.send({ status: 1, reason: "account deleted" });
 

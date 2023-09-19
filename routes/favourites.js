@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     try {
         //add recipe to the database
         await asyncMySQL(
-            addRecipe(recipeId, req.validatedUserId)
+            addRecipe(), [recipeId, req.validatedUserId]
         );
         res.send({ status: 1 });
     } catch (error) {
@@ -35,7 +35,7 @@ router.delete("/:id", async (req, res) => {
         return;
     }
 
-    const result = await asyncMySQL(deleteRecipe(id, req.validatedUserId))
+    const result = await asyncMySQL(deleteRecipe(), [id, req.validatedUserId])
     console.log(result, deleteRecipe(id, req.validatedUserId));
     if (result.affectedRows > 0) {
         res.send({ status: 1 });
@@ -47,7 +47,7 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
 
-    const results = await asyncMySQL(getFavouriteRecipes(req.validatedUserId));
+    const results = await asyncMySQL(getFavouriteRecipes(), [req.validatedUserId]);
 
     res.send({ status: 1, results });
 

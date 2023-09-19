@@ -20,12 +20,12 @@ module.exports = {
 
     deleteToken: (token) => {
         return `DELETE FROM tokens
-                WHERE token LIKE "${token}";`;
+                WHERE token = "${token}";`;
     },
 
     getIdByToken: (token) => {
         return `SELECT user_id FROM tokens
-                WHERE token LIKE "${token}";`;
+                WHERE token = "${token}";`;
     },
 
 
@@ -45,25 +45,25 @@ module.exports = {
 
     getFavouriteRecipes: (userId) => {
         return `SELECT  id, recipe_id AS recipeId FROM favouriteRecipes
-        WHERE user_id LIKE ${userId};
+        WHERE user_id = ${userId};
         `;
     },
 
     deleteAllRecipes: (userId) => {
         return `DELETE FROM favouriteRecipes
-        WHERE user_id LIKE ${userId};
+        WHERE user_id = ${userId};
         `;
     },
 
     deleteUser: (userId) => {
         return `DELETE FROM users
-        WHERE id LIKE ${userId};
+        WHERE id = ${userId};
         `;
     },
 
     deleteUserTokens: (userId) => {
         return `DELETE FROM tokens
-        WHERE user_id LIKE ${userId};
+        WHERE user_id = ${userId};
         `;
     }
 
