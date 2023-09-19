@@ -12,7 +12,7 @@ app.use(cors());
 
 //middelware function
 app.use((req, res, next) => {
-    console.log(chalk.yellow("new request"));
+    // console.log(chalk.yellow("new request"));
     next();
 });
 

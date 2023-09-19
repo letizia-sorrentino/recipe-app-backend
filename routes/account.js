@@ -62,6 +62,7 @@ router.delete("/logout", checkToken, async (req, res) => {
     console.log("token", req.headers.token);
     try {
         const result = await asyncMySQL(deleteToken(), [req.headers.token]);
+        console.log("logout");
         console.log(result);
         console.log(deleteToken(req.headers.token));
         res.send({ status: 1, reason: "logout successful" });
