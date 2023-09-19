@@ -3,7 +3,7 @@ const asyncMySQL = require("../mysql/connection");
 
 //middleware
 const checkToken = async (req, res, next) => {
-  const results = await asyncMySQL(getIdByToken(req.headers.token));
+  const results = await asyncMySQL(getIdByToken(), [req.headers.token]);
 
   console.log(results, req.headers.token);
 
