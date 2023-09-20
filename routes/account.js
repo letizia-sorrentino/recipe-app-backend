@@ -27,12 +27,7 @@ router.post("/login", async (req, res) => {
         return;
     };
 
-    if (email.toLowerCase().includes("not like")) {
-        res.send("hacker identified");
-        return;
-    };
-
-    if (email.length > 20) {
+    if (email.length > 40) {
         res.send("hacker identified");
         return;
     }
