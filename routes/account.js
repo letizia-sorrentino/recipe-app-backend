@@ -10,7 +10,7 @@ const chalk = require("chalk");
 //Login
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    console.log(chalk.blue(("login")));
+    //console.log(chalk.blue(("login")));
 
     //hash the password
     const sha256Password = sha256(password + "thisappisgreat");
@@ -53,6 +53,7 @@ router.post("/login", async (req, res) => {
         }
     } catch (error) {
         console.log(error);
+        next(error); //to make express handle the error;
     };
 
 });
@@ -75,7 +76,7 @@ router.delete("/logout", checkToken, async (req, res) => {
 //Create Account
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
-    console.log(chalk.blue("register"));
+    //console.log(chalk.blue("register"));
 
     //store the user info in the database
     try {
@@ -85,7 +86,12 @@ router.post("/register", async (req, res) => {
         console.log(results);
         res.send({ status: 1, userId: results.insertId });
     } catch (error) {
-        res.send({ status: 0 });
+        if (error.errno === 1062) {
+            res.send({ status: 0, reason: "Duplicate account" });
+        } else {
+            res.send({ status: 0, reason: error });
+        }
+
     }
 
 });
